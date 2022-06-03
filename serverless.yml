@@ -1,0 +1,53 @@
+service: aws-api-tiendasd
+frameworkVersion: '3'
+
+provider:
+  name: aws
+  runtime: nodejs14.x
+  iamRoleStatements:
+  - Effect: Allow
+    Action:
+        - dynamodb:*
+    Resource:
+      - arn:aws:dynamodb:us-east-1:604634450989:table/ProductsTable
+
+functions:
+  hello:
+    handler: src/handler.hello
+    events:
+      - httpApi:
+          path: /
+          method: get
+  addProduct:
+    handler: src/addProduct.addProduct
+    events:
+      - httpApi:
+          path: /addProduct
+          method: post
+  getProducts:
+    handler: src/getProducts.getProducts
+    events:
+      - httpApi:
+          path: /getProducts
+          method: get
+  getProduct:
+    handler: src/getProduct.getProduct
+    events:
+      - httpApi:
+           path: /producto/{id}
+           method: get
+
+
+resources:
+  Resources:
+    TaskTable:
+        Type: AWS::DynamoDB::Table
+        Properties:
+            TableName: ProductsTable
+            BillingMode: PAY_PER_REQUEST
+            AttributeDefinitions:
+              - AttributeName: id
+                AttributeType: S
+            KeySchema:
+              - AttributeName: id
+                KeyType: HASH
