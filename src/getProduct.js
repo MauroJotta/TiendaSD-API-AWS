@@ -5,19 +5,19 @@ const getProduct = async (event) => {
     const { id } = event.pathParameters;
 
     const result = await dynamodb.get({
-            TableName: `ProductsTable`,
-            Key: { id },
+        TableName: `ProductsTable`,
+        HashKey: { id: id },
         })
         .promise()
 
-    const product = result.Item
+    const product = result.Item;
 
     return {
         status: 200,
-        body: product,
-    };
-};
+        body: product
+    }
+}
 
 module.exports = {
     getProduct
-};
+}
