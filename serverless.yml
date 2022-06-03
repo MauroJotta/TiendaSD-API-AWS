@@ -34,7 +34,7 @@ functions:
     handler: src/getProduct.getProduct
     events:
       - httpApi:
-           path: /producto/{id}
+           path: /product/{id}
            method: get
 
 
