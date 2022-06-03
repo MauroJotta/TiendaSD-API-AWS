@@ -34,8 +34,14 @@ functions:
     handler: src/getProduct.getProduct
     events:
       - httpApi:
-           path: /product/{id}
+           path: /getProduct/{id}
            method: get
+  updateProduct:
+    handler: src/updateProduct.updateProduct
+    events:
+      - httpApi:
+            path: /updateProduct/{id}
+            method: put
 
 
 resources:
